@@ -41,4 +41,18 @@ router.get("/comic/:id", async (req, res) => {
   }
 });
 
+//Route to get comics related to a character
+router.get("/comics/:id", async (req, res) => {
+  try {
+    const response = await axios.get(
+      `https://lereacteur-marvel-api.herokuapp.com/comics/${req.params.id}?apiKey=${apiKey}`
+    );
+
+    res.json(response.data);
+  } catch (error) {
+    console.log(error.message);
+    res.status(500).json({ message: error.message });
+  }
+});
+
 module.exports = router;
